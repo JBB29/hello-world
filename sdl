@@ -1,0 +1,42 @@
+#! /bin/sh
+# sdl - directory utility
+# uses ls and some switches
+#
+kflag="$1"
+
+case $kflag in
+	-s)
+	OPTS="-S"
+	shift
+	;;
+	-d)
+	OPTS="-t"
+	shift
+	;;
+	-h)
+	echo "sdl - script directory listing  V3.1"
+	echo "usage: sdl <switches> <file mask>"
+	echo "where switches are:"
+	echo "-d  date/time order"
+	echo "-s  size order"
+	exit
+	;;
+	*)
+	;;
+esac
+
+#echo "Number of parameters = $#"
+
+if [ "$#" = "0" ]
+then
+	ls $OPTS -d -l * | more
+else
+	#ls -d -l $* | more
+	if [ -d "$*" ]
+	then
+		ls $OPTS -l $* | more
+	else
+		ls $OPTS -d -l $* | more
+	fi
+fi
+
